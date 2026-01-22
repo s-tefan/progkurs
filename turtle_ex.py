@@ -12,8 +12,6 @@ def rita_lite():
     turtle.left(120)
     turtle.forward(100)
     turtle.penup() # lyft pennan
-
-
     # Vad gör följande kod?
     turtle.goto(100, -100) # gå till punkt med koordinater (100, -100)
     turtle.setheading(-45) # sätt riktning till -45 grader (sydost)
@@ -26,4 +24,5 @@ def rita_lite():
     turtle.end_fill()
 
 rita_lite()
-input("Tryck enter för att avsluta")
+input("Tryck enter för att avsluta") # Väntar in entertangenttryck
+# När programmet avslutas stängs grafikfönstret
