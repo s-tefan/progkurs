@@ -4,7 +4,6 @@ import turtle
 
 # Vi definierar en funktion som ritar lite
 def rita_lite():
-
     turtle.pendown() # sätt ner pennan
     turtle.forward(100) # flytta framåt 100 pixlar
     turtle.left(120) # vrid vänster 120 grader
