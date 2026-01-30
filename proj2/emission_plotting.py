@@ -33,10 +33,11 @@ for row in row_list[1:]: # går igenom alla rader utom första
     post_dict_list.append(post_dict) # Lägg till posten i listan
 
 
-def timeline(dl, ad, variable):
+def timeline(dl, ad, variable, units):
     '''En funktion som ur datapostlistan dl filtrerar ut de poster där
-    ad är värdet till nyckeln 'anzsic_descriptor' och
-    variable är värdet till nyckeln 'variable'.
+    ad är värdet till nyckeln 'anzsic_descriptor',
+    variable är värdet till nyckeln 'variable' och
+    units är värdet av nyckeln 'units'
     Returnerar en lista med poster som dicts med nycklarna 'year', 'data_value' och 'units'
     [ {'year': ..., 'data_value': ..., 'units': ...}, ...]
     '''
@@ -48,7 +49,8 @@ def timeline(dl, ad, variable):
 
 anzic_descriptor = 'Agriculture'
 variable = 'Carbon dioxide'
-choice = timeline(post_dict_list, anzic_descriptor, variable)
+units = 'Kilotonnes'
+choice = timeline(post_dict_list, anzic_descriptor, variable, units)
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots() # Initierar ett diagram

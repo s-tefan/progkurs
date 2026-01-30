@@ -1,3 +1,4 @@
+import pathlib
 '''Givet en fil (som ligger i samma mapp som programkoden) med en tabell 
 där varje rad har semikolonåtskilda 'celler', läs in filen filnamn och skapa 
 en lista med ett element för varje rad som i sin tur är en lista av innehållet i respektive cell'''
@@ -29,15 +30,17 @@ for row in row_list[1:]: # går igenom alla rader utom första
     post_dict_list.append(post_dict) # Lägg till posten i listan
 
 
-def timeline(dl, ad, variable):
+def timeline(dl, ad, variable, units):
     '''En funktion som ur datapostlistan dl filtrerar ut de poster där
-    ad är värdet till nyckeln 'anzsic_descriptor' och
-    variable är värdet till nyckeln 'variable'.
-    Returnerar en lista med poster med nycklarna 'year', 'data_value' och 'units'
+    ad är värdet till nyckeln 'anzsic_descriptor',
+    variable är värdet till nyckeln 'variable' och
+    units är värdet av nyckeln 'units'
+    Returnerar en lista med poster som dicts med nycklarna 'year', 'data_value' och 'units'
+    [ {'year': ..., 'data_value': ..., 'units': ...}, ...]
     '''
     out_list = []
     for post in dl:
-        if post['anzsic_descriptor'] == ad and post['variable'] == variable:
+        if post['anzsic_descriptor'] == ad and post['variable'] == variable and post['units'] == units:
             out_list.append({'year': post['year'], 'data_value': post['data_value'], 'units': post['units']})
     return out_list
 
@@ -45,13 +48,14 @@ def timeline(dl, ad, variable):
 
 anzic_descriptor = 'Agriculture'
 variable = 'Carbon dioxide'
-choice = timeline(post_dict_list, anzic_descriptor, variable)
+units = 'Kilotonnes'
+choice = timeline(post_dict_list, anzic_descriptor, variable, units)
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots() # Initierar ett diagram
 x = [int(post['year']) for post in choice]  # Plockar ut årtalen som en lista av heltal
 y = [float(post['data_value']) for post in choice] # Plockar ut utsläppsvärden som en lista av flyttal
-ax.bar(x,y) # Gör ett diagram över värdena i y mot värdena i x. Testa gärna olika diagramtyper enligt
+ax.stem(x,y) # Gör ett diagram över värdena i y mot värdena i x. Testa gärna olika diagramtyper enligt
 # dokumentationen för matplotlib https://matplotlib.org/stable/plot_types/index.html
 ax.set_title(choice[0]['units'], loc='left', fontsize='medium') # sätt ut enhet vid y-axeln
 fig.suptitle('Emission of ' + variable + ' from ' + anzic_descriptor) # Sätt en titel för figuren
