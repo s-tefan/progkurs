@@ -1,0 +1,25 @@
+'''
+== Läsa in från fil ==
+För att läsa in text från en textfil 
+'''
+with open("bludder.txt") as infil:
+    text = infil.read()
+print(text)
+
+'''
+== Skriva ut på textfil ==
+'''
+with open("utskrift.txt", "a", encoding="utf-8") as utfil: 
+    #'a' för att lägga till, 'w' för att skriva över
+    utfil.write("En första rad.\n")
+with open("utskrift.txt") as infil:
+    print(infil.read())
+with open("utskrift.txt", "a") as utfil: 
+    #'a' för att lägga till, 'w' för att skriva över
+    utfil.write("Ytterligare en rad.\n")
+with open("utskrift.txt") as infil:
+    print(infil.read())
+
+
+
+

@@ -1,0 +1,3 @@
+Den här filen innehåller text.
+Detta är andra raden.
+Detta är redje raden.

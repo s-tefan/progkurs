@@ -1,0 +1,20 @@
+st3=>start: start main
+io5=>inputoutput: input: product_list
+sub8=>subroutine: score_all(product_list)
+op10=>operation: best = find_best_product(product_list)
+op12=>operation: best['taken'] = True
+sub14=>subroutine: print('Best product:')
+sub16=>subroutine: print(best)
+sub18=>subroutine: print('All products:')
+sub20=>subroutine: display_products(product_list)
+e22=>end: end main
+
+st3->io5
+io5->sub8
+sub8->op10
+op10->op12
+op12->sub14
+sub14->sub16
+sub16->sub18
+sub18->sub20
+sub20->e22
