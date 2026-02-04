@@ -48,11 +48,13 @@ def list_error_codes(data):
 list_error_codes(CoreData.sensor_data)
 
 def vg(data):
+    candidates = set(mess["sensor"] for mess in CoreData.sensor_data ) 
     for product in set(m["product"] for m in data):
-        mess_list = all_messages_about_product(data, product)
-        # obs: mess_list är i tidsordning
-        for k in range(1,len(mess_list)):
-            if mess_list[k]["sensor"] < mess_list[k-1]["sensor"]:
-                print(mess_list[k-1], mess_list[k], "i fel ordning")
-
-vg(CoreData.sensor_data)
+        sensor_list = sorted(mess["sensor"] for mess in all_messages_about_product(data, product))
+        # obs: mess_list är i tidsordning NEJNEJNEJ
+        for k in range(1,len(sensor_list)):
+            if sensor_list[k] < sensor_list[k-1]:
+                print("Sensorer", sensor_list[k-1], sensor_list, "rapporterade i fel ordning för produkt", product)
+                candidates &= {sensor_list, sensor_list} 
+    return candidates
+print("Följande sensorer förekommer i alla meddelanden där sensorerna inte rapporterats i rätt ordning:", vg(CoreData.sensor_data))
