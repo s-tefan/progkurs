@@ -50,13 +50,21 @@ def list_error_codes(data):
 list_error_codes(sensor_data)
 
 def vg(data):
-    candidates = set(mess["sensor"] for mess in sensor_data ) # Mängd initierad med alla sensor-nr
-    for product in set(m["product"] for m in data): # En produkt i taget
-        messes = all_messages_about_product(data, product) # redan sorterad med avseende på tid
+    '''Rapporterar vilka sensorer som förekommer i alla fall 
+    där sensorer triggat i fel tidsordning'''
+    candidates = set(mess["sensor"] for mess in sensor_data ) 
+    # Mängd initierad med alla sensor-nr
+    for product in set(m["product"] for m in data): 
+        # En produkt i taget
+        messes = all_messages_about_product(data, product) 
+        # redan sorterad med avseende på tid
         for s in range(1,len(messes)):
             for f in range(s):
-                first, second = messes[f], messes[s] # first kommer före second i tid
-                if first['sensor'] > second['sensor']: # om sensorerna meddelat i fel tidsordning
-                    candidates &= {first['sensor'], second['sensor']} # behåll sensornumren  
+                first, second = messes[f], messes[s] 
+                # first kommer före second i tid
+                if first['sensor'] > second['sensor']: 
+                    # om sensorerna meddelat i fel tidsordning
+                    candidates &= {first['sensor'], second['sensor']} 
+                    # behåll sensornumren  
     return candidates
-print("Följande sensorer förekommer i alla meddelanden där sensorerna inte rapporterats i rätt ordning:", vg(CoreData.sensor_data))
+print("Följande sensorer förekommer i alla meddelanden där sensorerna inte rapporterats i rätt ordning:", vg(sensor_data))
